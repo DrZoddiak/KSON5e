@@ -13,6 +13,7 @@ import retrofit2.http.Path
 
 class JTK {
     companion object {
+        @JvmStatic
         fun main(args: Array<String>) {
             val service: Service = ServiceGenerator.createService(Service::class.java)
         }
