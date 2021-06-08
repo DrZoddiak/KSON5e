@@ -1,7 +1,10 @@
+
+
 plugins {
     java
     maven
-    kotlin("jvm") version "1.4.21"
+    application
+    kotlin("jvm") version "1.3.72"
 }
 
 repositories {
@@ -14,6 +17,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.8.0")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.jar {

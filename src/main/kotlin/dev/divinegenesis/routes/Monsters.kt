@@ -48,7 +48,7 @@ data class Weapons(
     var name: String?,
     var desc: String?,
     var attack_bonus: Int?,
-    var damage: List<Damage>?,
+    var damage: List<Damage>?
 )
 
 data class Damage(
