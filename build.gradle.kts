@@ -1,7 +1,11 @@
 plugins {
     java
+    maven
     kotlin("jvm") version "1.4.21"
 }
+
+group "com.github.DrZoddiak"
+version "1.0-SNAPSHOT"
 
 group "dev.divinegenesis"
 version "1.0-SNAPSHOT"
