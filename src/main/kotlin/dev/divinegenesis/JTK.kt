@@ -11,8 +11,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-open class JTK {
-    val service: Service = ServiceGenerator.createService(Service::class.java)
+class JTK {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val service: Service = ServiceGenerator.createService(Service::class.java)
+        }
+    }
 }
 
 object ServiceGenerator {
