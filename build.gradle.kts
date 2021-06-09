@@ -2,7 +2,7 @@ plugins {
     java
     maven
     application
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.21"
 }
 
 repositories {
@@ -18,8 +18,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 }
 
-tasks.jar {
-    // Otherwise you'll get a "No main manifest attribute" error
+tasks.jar { // Otherwise you'll get a "No main manifest attribute" error
     manifest {
         attributes["Main-Class"] = "dev.divinegenesis.JTK"
     }

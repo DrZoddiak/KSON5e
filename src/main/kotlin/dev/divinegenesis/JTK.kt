@@ -12,13 +12,20 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 class JTK {
+    init {
+        Service().service
+    }
+
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            val service: Service = ServiceGenerator.createService(Service::class.java)
         }
     }
 }
+
+data class Service(
+    val service: LinkParse = ServiceGenerator.createService(LinkParse::class.java)
+)
 
 object ServiceGenerator {
     private const val BASE_URL = "https://www.dnd5eapi.co/api/"
@@ -42,7 +49,7 @@ object ServiceGenerator {
     }
 }
 
-interface Service {
+interface LinkParse {
     @GET("ability-scores/{abilityScore}")
     fun abilityScores(
         @Path("abilityScore") abilityScore: String
