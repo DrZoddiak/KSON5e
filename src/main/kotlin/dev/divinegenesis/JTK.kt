@@ -13,12 +13,15 @@ import retrofit2.http.Path
 
 class JTK {
     init {
-        Service().service
+        val service = Service().service
     }
 
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
+            val service = Service().service
+            println(service.toString())
+            println(Service().toString())
         }
     }
 }

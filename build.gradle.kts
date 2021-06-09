@@ -11,11 +11,11 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.code.gson:gson:2.8.7")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.8.0")
-    implementation(kotlin("stdlib-jdk8"))
+    compileOnly("com.google.code.gson:gson:2.8.7")
+    compileOnly("com.squareup.retrofit2:retrofit:2.9.0")
+    compileOnly("com.squareup.retrofit2:converter-gson:2.9.0")
+    compileOnly("com.squareup.okhttp3:logging-interceptor:3.8.0")
+    compileOnly(kotlin("stdlib-jdk8"))
 }
 
 tasks.jar { // Otherwise you'll get a "No main manifest attribute" error
