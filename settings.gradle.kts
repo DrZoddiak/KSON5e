@@ -1,1 +1,1 @@
-rootProject.name = "JTK"
+rootProject.name = "Kson5e"
