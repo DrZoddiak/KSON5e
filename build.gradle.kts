@@ -46,13 +46,6 @@ tasks.withType<ShadowJar> {
     relocate("com.google","dev.divinegenesis.google")
 }
 
-
-
-tasks.withType<AbstractArchiveTask> {
-    isPreserveFileTimestamps = false
-    isReproducibleFileOrder = true
-}
-
 tasks {
     compileKotlin {
         kotlinOptions {
