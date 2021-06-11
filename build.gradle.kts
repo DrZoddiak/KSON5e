@@ -1,14 +1,14 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
-    `maven-publish`
     java
+    `maven-publish`
     kotlin("jvm") version "1.4.21"
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 project.group = "dev.divinegenesis"
 project.version = "1.0-SNAPSHOT"
+group = "com.github.DrZoddiak"
 
 
 repositories {
@@ -26,13 +26,13 @@ dependencies {
 val shadowJar: ShadowJar by tasks
 val jar: Jar by tasks
 val build: Task by tasks
+val compileJava: JavaCompile by tasks
+val clean: Task by tasks
 
 jar.manifest {
     attributes(mapOf("Main-Class" to "dev.divinegenesis.JTK"))
 }
 jar.enabled = false
-
-build.dependsOn(shadowJar)
 
 tasks.withType<ShadowJar> {
     exclude("org/**","kotlin/**","okhttp3/**","okio/**")
@@ -64,5 +64,13 @@ tasks {
             jvmTarget = "1.8"
         }
     }
+}
+
+build.apply {
+    dependsOn(jar)
+    dependsOn(shadowJar)
+
+    jar.mustRunAfter(clean)
+    shadowJar.mustRunAfter(jar)
 }
 
