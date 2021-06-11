@@ -32,16 +32,15 @@ val clean: Task by tasks
 jar.manifest {
     attributes(mapOf("Main-Class" to "dev.divinegenesis.JTK"))
 }
-jar.enabled = false
 
 tasks.withType<ShadowJar> {
     exclude("org/**","kotlin/**","okhttp3/**","okio/**")
-    mergeServiceFiles()
     archiveBaseName.set("Kson5e")
     archiveClassifier.set("")
     archiveVersion.set("1.0")
     relocate("retrofit2","dev.divinegenesis.retrofit2")
     relocate("com.google","dev.divinegenesis.google")
+    mergeServiceFiles()
 }
 
 tasks {
