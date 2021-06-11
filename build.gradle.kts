@@ -1,8 +1,8 @@
 plugins {
     java
     maven
-    application
     kotlin("jvm") version "1.4.21"
+    id("com.github.johnrengelman.shadow") version "2.0.4"
 }
 
 repositories {
@@ -10,22 +10,49 @@ repositories {
     jcenter()
 }
 
+configurations {
+    compileClasspath.get().extendsFrom to project.shadow
+}
+
 dependencies {
-    compileOnly("com.google.code.gson:gson:2.8.7")
-    compileOnly("com.squareup.retrofit2:retrofit:2.9.0")
-    compileOnly("com.squareup.retrofit2:converter-gson:2.9.0")
+    api("com.google.code.gson:gson:2.8.7")
+    api("com.squareup.retrofit2:retrofit:2.9.0")
+    api("com.squareup.retrofit2:converter-gson:2.9.0")
     compileOnly("com.squareup.okhttp3:logging-interceptor:3.8.0")
     compileOnly(kotlin("stdlib-jdk8"))
 }
 
-tasks.jar { // Otherwise you'll get a "No main manifest attribute" error
-    manifest {
-        attributes["Main-Class"] = "dev.divinegenesis.JTK"
+tasks {
+    shadowJar {
+        archiveBaseName.set("Kson5e")
+        archiveClassifier.set("dev")
+        configurations {
+            create("exposedAPI") {
+                isCanBeConsumed = true
+            }.extendsFrom to project.shadow
+        }
+        relocate(
+            "com.squareup.retrofit2",
+            "dev.divinegenesis.retrofit2"
+        )
+        relocate("com.google.code", "dev.divinegenesis.code")
+        mergeServiceFiles()
+        manifest {
+            attributes(mapOf("Main-Class" to "dev.divinegenesis.JTK"))
+        }
     }
+}
 
-    from(sourceSets.main.get().output)
-    dependsOn(configurations.runtimeClasspath)
-    from({
-        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
-    })
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
+}
+
+tasks {
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
 }
