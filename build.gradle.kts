@@ -23,11 +23,12 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
 }
 
-tasks.withType<ShadowJar> {
+val build: Task by tasks
+val shadowJar: ShadowJar by tasks
+val jar: Jar by tasks
+
+tasks.shadowJar{
     exclude("org/**","kotlin/**","okhttp3/**","okio/**")
-    archiveBaseName.set("Kson5e")
-    archiveClassifier.set("")
-    archiveVersion.set("1.0")
     relocate("retrofit2","dev.divinegenesis.retrofit2")
     relocate("com.google","dev.divinegenesis.google")
     mergeServiceFiles()
@@ -35,6 +36,8 @@ tasks.withType<ShadowJar> {
         attributes(mapOf("Main-Class" to "dev.divinegenesis.JTK"))
     }
 }
+
+jar.dependsOn(shadowJar)
 
 tasks {
     compileKotlin {
