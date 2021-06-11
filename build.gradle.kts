@@ -32,41 +32,17 @@ dependencies {
 }
 
 val shadowJar: ShadowJar by tasks
-val jar: Jar by tasks
-val clean: Task by tasks
 val build: Task by tasks
 
 shadowJar.archiveClassifier.set("FatJar")
-
-
-
-val minimalJar = task<ShadowJar>("minimalJar") {
-    dependsOn(shadowJar)
-    minimize()
-    archiveClassifier.set("${shadowJar.archiveClassifier}-min")
-    configurations = shadowJar.configurations
-    from(sourceSets["main"].output)
-    manifest.inheritFrom(jar.manifest)
-}
 
 tasks.withType<ShadowJar> {
     exclude("*.pom")
     relocate("com.squareup.retrofit","dev.divinegenesis.retrofit")
 }
 
-jar.apply {
-    archiveBaseName.set(project.name)
-    manifest.attributes(mapOf(
-        "Implementation-Version" to "1.0"))
-}
-
 build.apply {
-    dependsOn(jar)
     dependsOn(shadowJar)
-    dependsOn(minimalJar)
-
-    jar.mustRunAfter(clean)
-    shadowJar.mustRunAfter(jar)
 }
 
 tasks {
