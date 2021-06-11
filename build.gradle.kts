@@ -15,9 +15,15 @@ configurations {
 }
 
 dependencies {
-    api("com.google.code.gson:gson:2.8.7")
-    api("com.squareup.retrofit2:retrofit:2.9.0")
-    api("com.squareup.retrofit2:converter-gson:2.9.0")
+    api("com.google.code.gson:gson:2.8.7") {
+        isTransitive = true
+    }
+    api("com.squareup.retrofit2:retrofit:2.9.0") {
+        isTransitive = true
+    }
+    api("com.squareup.retrofit2:converter-gson:2.9.0") {
+        isTransitive = true
+    }
     compileOnly("com.squareup.okhttp3:logging-interceptor:3.8.0")
     compileOnly(kotlin("stdlib-jdk8"))
 }
