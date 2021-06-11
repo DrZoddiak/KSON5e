@@ -35,11 +35,11 @@ jar.enabled = false
 build.dependsOn(shadowJar)
 
 tasks.withType<ShadowJar> {
+    exclude("org/**","kotlin/**","okhttp3/**","okio/**")
     mergeServiceFiles()
     archiveBaseName.set("Kson5e")
     archiveClassifier.set("")
     archiveVersion.set("1.0")
-    exclude("org","okio","okhttp3","kotlin")
     relocate("retrofit2","dev.divinegenesis.retrofit2")
     relocate("com.google","dev.divinegenesis.google")
 }
@@ -48,7 +48,6 @@ tasks {
     kotlinSourcesJar {
         typeOf<Jar>()
         dependsOn(classes)
-
         archiveClassifier.set("sources")
         from(project.sourceSets["main"].allSource)
     }
