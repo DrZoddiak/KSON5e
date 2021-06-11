@@ -1,8 +1,8 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    `java-library`
     `maven-publish`
+    java
     kotlin("jvm") version "1.4.21"
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
@@ -53,3 +53,4 @@ tasks {
         }
     }
 }
+
