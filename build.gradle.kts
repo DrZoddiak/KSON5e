@@ -20,7 +20,7 @@ dependencies {
     api("com.squareup.retrofit2:retrofit:2.9.0")
     api("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:3.8.0")
-    shadow(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 val shadowJar: ShadowJar by tasks
@@ -39,6 +39,7 @@ tasks.withType<ShadowJar> {
     archiveBaseName.set("Kson5e")
     archiveClassifier.set("")
     archiveVersion.set("1.0")
+    exclude("org","okio","okhttp3","kotlin")
     relocate("retrofit2","dev.divinegenesis.retrofit2")
     relocate("com.google","dev.divinegenesis.google")
 }
