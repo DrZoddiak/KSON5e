@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.cli.jvm.main
 
 plugins {
     `maven-publish`
@@ -44,7 +43,18 @@ tasks.withType<ShadowJar> {
     relocate("com.google","dev.divinegenesis.google")
 }
 
+tasks {
+    kotlinSourcesJar {
+        typeOf<Jar>()
+        dependsOn(classes)
+
+        archiveClassifier.set("sources")
+        from(project.sourceSets["main"].allSource)
+    }
+}
+
 artifacts {
+    archives(tasks.kotlinSourcesJar)
     archives(shadowJar)
 }
 
