@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.cli.jvm.main
 
 plugins {
     `maven-publish`
@@ -27,9 +28,6 @@ val shadowJar: ShadowJar by tasks
 val jar: Jar by tasks
 val build: Task by tasks
 
-
-shadowJar.archiveClassifier.set("FatJar")
-
 jar.manifest {
     attributes(mapOf("Main-Class" to "dev.divinegenesis.JTK"))
 }
@@ -44,6 +42,10 @@ tasks.withType<ShadowJar> {
     archiveVersion.set("1.0")
     relocate("retrofit2","dev.divinegenesis.retrofit2")
     relocate("com.google","dev.divinegenesis.google")
+}
+
+artifacts {
+    archives(shadowJar)
 }
 
 tasks {
