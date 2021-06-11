@@ -37,8 +37,13 @@ val build: Task by tasks
 shadowJar.archiveClassifier.set("FatJar")
 
 tasks.withType<ShadowJar> {
+    archiveBaseName.set("Kson5e")
     exclude("*.pom")
     relocate("com.squareup.retrofit","dev.divinegenesis.retrofit")
+    mergeServiceFiles()
+    manifest {
+        attributes(mapOf("Main-Class" to "dev.divinegenesis.JTK"))
+    }
 }
 
 build.apply {
