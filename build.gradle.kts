@@ -1,17 +1,20 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+
 plugins {
-    java
-    maven
+    `java-library`
+    `maven-publish`
     kotlin("jvm") version "1.4.21"
-    id("com.github.johnrengelman.shadow") version "2.0.4"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
+
+project.group = "dev.divinegenesis"
+project.version = "1.0-SNAPSHOT"
+
 
 repositories {
     mavenCentral()
     jcenter()
-}
-
-configurations {
-    compileClasspath.get().extendsFrom to project.shadow
 }
 
 dependencies {
@@ -28,31 +31,42 @@ dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
 }
 
-tasks {
-    shadowJar {
-        archiveBaseName.set("Kson5e")
-        archiveClassifier.set("dev")
-        configurations {
-            create("exposedAPI") {
-                isCanBeConsumed = true
-            }.extendsFrom to project.shadow
-        }
-        relocate(
-            "com.squareup.retrofit2",
-            "dev.divinegenesis.retrofit2"
-        )
-        relocate("com.google.code", "dev.divinegenesis.code")
-        mergeServiceFiles()
-        manifest {
-            attributes(mapOf("Main-Class" to "dev.divinegenesis.JTK"))
-        }
-    }
+val shadowJar: ShadowJar by tasks
+val jar: Jar by tasks
+val clean: Task by tasks
+val build: Task by tasks
+
+shadowJar.archiveClassifier.set("FatJar")
+
+
+
+val minimalJar = task<ShadowJar>("minimalJar") {
+    dependsOn(shadowJar)
+    minimize()
+    archiveClassifier.set("${shadowJar.archiveClassifier}-min")
+    configurations = shadowJar.configurations
+    from(sourceSets["main"].output)
+    manifest.inheritFrom(jar.manifest)
 }
 
-tasks {
-    build {
-        dependsOn(shadowJar)
-    }
+tasks.withType<ShadowJar> {
+    exclude("*.pom")
+    relocate("com.squareup.retrofit","dev.divinegenesis.retrofit")
+}
+
+jar.apply {
+    archiveBaseName.set(project.name)
+    manifest.attributes(mapOf(
+        "Implementation-Version" to "1.0"))
+}
+
+build.apply {
+    dependsOn(jar)
+    dependsOn(shadowJar)
+    dependsOn(minimalJar)
+
+    jar.mustRunAfter(clean)
+    shadowJar.mustRunAfter(jar)
 }
 
 tasks {
