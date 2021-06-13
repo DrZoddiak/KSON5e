@@ -42,22 +42,22 @@ interface LinkParse {
         @Path("abilityScore") abilityScore: String
     ): Call<AbilityScores>
 
-    @GET("monsters/{alignments}")
+    @GET("alignments/{alignments}")
     fun alignments(
         @Path("alignments") alignments: String
     ): Call<Alignments>
 
-    @GET("ability-scores/{backgrounds}")
+    @GET("backgrounds/{backgrounds}")
     fun backgrounds(
         @Path("backgrounds") backgrounds: String
     ): Call<Backgrounds>
 
-    @GET("monsters/{classes}")
+    @GET("classes/{classes}")
     fun classes(
         @Path("classes") classes: String
     ): Call<Classes>
 
-    @GET("ability-scores/{condition}")
+    @GET("conditions/{condition}")
     fun condition(
         @Path("condition") condition: String
     ): Call<Conditions>
@@ -65,6 +65,6 @@ interface LinkParse {
     @GET("monsters/{monster}")
     fun monsters(
         @Path("monster") monster: String
-    ): Call<DamageTypes>
+    ): Call<Monsters>
 
 }

@@ -10,7 +10,7 @@ plugins {
 val versionObj = Version(
     "0",
     "1",
-    "2"
+    "3"
 )
 
 project.group = "dev.divinegenesis"
