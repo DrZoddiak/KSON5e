@@ -14,10 +14,3 @@ data class Results(
     var name: String? = null,
     var url: String? = null
 ) {}
-
-data class orange(
-    val index: String?,
-    val name: String?,
-    val desc: List<String>?,
-    val url: String?
-)
