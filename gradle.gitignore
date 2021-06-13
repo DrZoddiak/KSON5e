@@ -1,0 +1,7 @@
+.idea
+**/build
+
+gradle-app.setting
+!gradle-warpper.jar
+
+.gradletasknamecache
