@@ -11,27 +11,27 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 data class Service(
-    val service: LinkParse = ServiceGenerator.createService(LinkParse::class.java)
+    val service: LinkParse = ServiceGenerator.createService(serviceClass = LinkParse::class.java)
 )
 
 object ServiceGenerator {
     private const val BASE_URL = "https://www.dnd5eapi.co/api/"
     private val gson: Gson = Gson()
     private val builder = Retrofit.Builder()
-        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
     private var retrofit = builder.build()
     private val logging = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BASIC)
     private val httpClient = OkHttpClient.Builder()
-    fun <S> createService(
+    fun <S> createService(url: String = BASE_URL,
         serviceClass: Class<S>
     ): S {
         if (!httpClient.interceptors().contains(logging)) {
             httpClient.addInterceptor(logging)
-            builder.client(httpClient.build())
-            retrofit = builder.build()
+            builder.baseUrl(url).client(httpClient.build())
+            retrofit = builder.baseUrl(url).build()
         }
+        retrofit = builder.baseUrl(url).build()
         return retrofit.create(serviceClass)
     }
 }
