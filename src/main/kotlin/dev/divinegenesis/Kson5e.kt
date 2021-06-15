@@ -11,7 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 data class Service(
-    val service: LinkParse = ServiceGenerator.createService(serviceClass = LinkParse::class.java)
+    val service: LinkParse = ServiceGenerator.createService(LinkParse::class.java)
 )
 
 object ServiceGenerator {
