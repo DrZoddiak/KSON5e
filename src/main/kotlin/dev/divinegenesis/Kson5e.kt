@@ -18,23 +18,24 @@ object ServiceGenerator {
     private const val BASE_URL = "https://www.dnd5eapi.co/api/"
     private val gson: Gson = Gson()
     private val builder = Retrofit.Builder()
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(gson))
     private var retrofit = builder.build()
     private val logging = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BASIC)
     private val httpClient = OkHttpClient.Builder()
-    fun <S> createService(url: String = BASE_URL,
+    fun <S> createService(
         serviceClass: Class<S>
     ): S {
         if (!httpClient.interceptors().contains(logging)) {
             httpClient.addInterceptor(logging)
-            builder.baseUrl(url).client(httpClient.build())
-            retrofit = builder.baseUrl(url).build()
+            builder.client(httpClient.build())
+            retrofit = builder.build()
         }
-        retrofit = builder.baseUrl(url).build()
         return retrofit.create(serviceClass)
     }
 }
+
 
 interface LinkParse {
     @GET("ability-scores/{abilityScore}")
