@@ -42,7 +42,7 @@ data class Spellcasting(
 
 data class Info(
 
-    val desc: String?,
+    val desc: List<String>?,
     val name: String?
 
 ) {}
