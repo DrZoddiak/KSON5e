@@ -18,7 +18,7 @@ data class Classes(
     val starting_equipment_options: List<ClassesStartingEquipment>?,
     val class_levels: String?,
     val subclasses: List<Results>?,
-    val spellcasting: JsonArray,
+    val spellcasting: Spellcasting,
     val spells: String?,
     val url: String?
 ) {}
@@ -35,9 +35,9 @@ data class ClassesStartingEquipment(
 ) {}
 
 data class Spellcasting(
-    val info: List<Info>?,
     val level: Int?,
-    val spellcasting_ability: List<Results>?
+    val spellcasting_ability: List<Results>?,
+    val info: List<Info>?
 ) {}
 
 data class Info(
