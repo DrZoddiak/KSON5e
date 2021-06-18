@@ -36,7 +36,7 @@ data class ClassesStartingEquipment(
 
 data class Spellcasting(
     val level: Int?,
-    val spellcasting_ability: List<Results>?,
+    val spellcasting_ability: Results?,
     val info: List<Info>?
 ) {}
 
