@@ -1,4 +1,4 @@
-Builds can be found at https://dev.freeloli.com/releases/dev/divinegenesis/Kson5e
+Builds can be found at https://repo.zodd.me/releases/dev/divinegenesis/Kson5e
 
 
 # KSON5e
