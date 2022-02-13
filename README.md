@@ -9,7 +9,7 @@ Heavy WIP project!
 # Import
 ```md
 repositories {
-    maven("https://dev.freeloli.com/releases")
+    maven("https://repo.zodd.me/releases")
 }
 
 
